@@ -48,6 +48,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument('--replacement-stage', choices=('both', 'pre', 'post'), default=argparse.SUPPRESS,
                         help='Apply replacement rules before, after, or both sides of cleanup')
 
+    parser.add_argument("--no-newline", action="store_true",
+                        help="Do not append a newline to the output")
+
     args = parser.parse_args(argv[1:])
 
     if args.input_string and args.stdin:
@@ -103,7 +106,7 @@ def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     params = slugify_params(args)
     try:
-        print(slugify(**params))
+        print(slugify(**params), end="" if args.no_newline else "\n")
     except KeyboardInterrupt:
         sys.exit(-1)
 
