@@ -149,6 +149,15 @@ slugify --stopwords the in a hurry -- the quick brown fox jumps over the lazy do
 slugify --replacement-stage pre --replacements 'a->aa' -- a
 ```
 
+The command ends its output with a newline.
+To write the slug with no trailing newline, such as into a file that must contain only the slug, add `--no-newline`.
+It works with text arguments and `--stdin`:
+
+```sh
+slugify --no-newline "Hello, world!" > slug.txt
+printf 'Café' | slugify --stdin --no-newline
+```
+
 ## Development and local release checks
 
 ```sh
